@@ -12,6 +12,7 @@ module.exports = {
     'plugin:sonarjs/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:case-police/recommended',
+    '@vue/eslint-config-prettier/skip-formatting',
 
     // 'plugin:unicorn/recommended',
   ],
