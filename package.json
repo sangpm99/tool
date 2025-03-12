@@ -81,7 +81,6 @@
     "@types/webfontloader": "1.6.38",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@videojs-player/vue": "1.0.0",
     "@vitejs/plugin-vue": "5.1.2",
     "@vitejs/plugin-vue-jsx": "4.0.0",
     "eslint": "8.57.0",
