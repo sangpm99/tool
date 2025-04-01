@@ -4,8 +4,6 @@ import emptyData from "@/assets/images/empty-data.jpg";
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const csvData = ref<any[]>([]);
-const isLoadData = ref<boolean>(false);
-const isDownloadFile = ref<boolean>(false);
 
 const triggerFileInput = () => {
   fileInput.value?.click();
@@ -22,35 +20,17 @@ const readCSV = (file: File) => {
 
 const handleFileSelect = (event: Event) => {
   try {
-    isLoadData.value = true;
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
       readCSV(target.files[0]);
     }
   } catch (error) {
     console.log(error);
-  } finally {
-    isLoadData.value = false;
   }
 };
 
-const downloadCSV = (data: any[]) => {
-  const csv = Papa.unparse(data);
-
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "data-changed.csv";
-  a.click();
-
-  URL.revokeObjectURL(url);
-};
-
-const onChangeAndDownload = () => {
+const onChangeSkuId = () => {
   try {
-    isDownloadFile.value = true;
     let id = 0;
     for (let i = 0; i < csvData.value.length; i++) {
       csvData.value[i]["SKU"] = "";
@@ -62,12 +42,23 @@ const onChangeAndDownload = () => {
         csvData.value[i]["Parent"] = `id:${id}`;
       }
     }
-    downloadCSV(csvData.value);
   } catch (error) {
     console.log(error);
-  } finally {
-    isDownloadFile.value = false;
   }
+};
+
+const onDownload = () => {
+  const csv = Papa.unparse(csvData.value);
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "data.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
 };
 </script>
 
@@ -77,31 +68,47 @@ const onChangeAndDownload = () => {
       <VCol cols="12">
         <VCard>
           <VCardText>
-            <div class="d-flex gap-4">
-              <VTooltip text="Create">
+            <div class="d-flex">
+              <VTooltip text="Upload File">
                 <template #activator="{ props }">
                   <VBtn
                     v-bind="props"
-                    icon="mdi-plus"
+                    icon="ri-upload-2-line"
                     class="rounded"
                     @click="triggerFileInput"
-                    :loading="isLoadData"
                   ></VBtn>
                 </template>
               </VTooltip>
 
-              <VTooltip text="Change & Download" v-if="csvData.length">
-                <template #activator="{ props }">
-                  <VBtn
-                    v-bind="props"
-                    icon="ri-download-2-line"
-                    class="rounded"
-                    color="info"
-                    @click="onChangeAndDownload"
-                    :loading="isDownloadFile"
-                  ></VBtn>
-                </template>
-              </VTooltip>
+              <VSpacer></VSpacer>
+
+              <div class="d-flex gap-4">
+                <VTooltip text="Change SKU / ID">
+                  <template #activator="{ props }">
+                    <VBtn
+                      :disabled="!csvData.length"
+                      v-bind="props"
+                      icon="mdi-reload"
+                      class="rounded"
+                      color="warning"
+                      @click="onChangeSkuId"
+                    ></VBtn>
+                  </template>
+                </VTooltip>
+
+                <VTooltip text="Change & Download">
+                  <template #activator="{ props }">
+                    <VBtn
+                      :disabled="!csvData.length"
+                      v-bind="props"
+                      icon="ri-download-2-line"
+                      class="rounded"
+                      color="info"
+                      @click="onDownload"
+                    ></VBtn>
+                  </template>
+                </VTooltip>
+              </div>
             </div>
           </VCardText>
         </VCard>
@@ -131,5 +138,9 @@ const onChangeAndDownload = () => {
       accept="text/csv"
       hidden
     />
+
+    <VSnackbar v-model="isSnackbarVisible" location="top" :timeout="3000" close>
+      {{ message }}
+    </VSnackbar>
   </div>
 </template>
