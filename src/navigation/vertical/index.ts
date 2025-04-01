@@ -8,5 +8,11 @@ export default [
     title: "Products",
     to: { name: "products" },
     icon: { icon: "ri-shirt-line" },
+    children: [
+      {
+        title: "Change SKU / ID",
+        to: { name: "products-change-sku-id" },
+      },
+    ],
   },
 ];

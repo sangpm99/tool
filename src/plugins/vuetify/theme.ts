@@ -45,6 +45,14 @@ export const themes: Record<string, ThemeDefinition> = {
       'expansion-panel-text-custom-bg': '#fafafa',
       'track-bg': '#FAFAFD',
       'chat-bg': '#F7F6FA',
+      'purple': '#9C27B0',
+      'indigo': '#3F51B5',
+      'deep-purple': '#673AB7',
+      'black': '#000',
+      'tiktok': '#331728',
+      'trans': '#FFFFFF00',
+      'teal': '#009688',
+      'orange': '#FF9800',
     },
 
     variables: {
@@ -116,6 +124,14 @@ export const themes: Record<string, ThemeDefinition> = {
       'expansion-panel-text-custom-bg': '#333851',
       'track-bg': '#3C3F59',
       'chat-bg': '#343752',
+      'purple': '#9C27B0',
+      'indigo': '#3F51B5',
+      'deep-purple': '#673AB7',
+      'black': '#000',
+      'tiktok': '#331728',
+      'trans': '#FFFFFF00',
+      'teal': '#009688',
+      'orange': '#FF9800',
     },
 
     variables: {
