@@ -1,13 +1,13 @@
 import { axiosDefault } from "@/plugins/axios";
-import type { Product } from "@/types/product";
+import type { SimpleProduct } from "@/types/product";
 
 export const useProductStore = defineStore("product-store", () => {
   const loading: Ref<boolean> = ref(false);
 
-  const getProducts = async (): Promise<Product[]> => {
+  const getSimpleProducts = async (): Promise<SimpleProduct[]> => {
     loading.value = true;
     try {
-      const { data } = await axiosDefault.get<Product[]>(`/products`);
+      const { data } = await axiosDefault.get<SimpleProduct[]>(`/products`);
       return data;
     } catch (error) {
       return Promise.reject(error);
@@ -18,6 +18,6 @@ export const useProductStore = defineStore("product-store", () => {
 
   return {
     loading,
-    getProducts,
+    getSimpleProducts,
   };
 });

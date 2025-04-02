@@ -5,13 +5,13 @@ export default [
     icon: { icon: "ri-home-smile-2-line" },
   },
   {
-    title: "Products",
-    to: { name: "products" },
+    title: "Product",
+    to: { name: "product" },
     icon: { icon: "ri-shirt-line" },
     children: [
       {
         title: "Change SKU / ID",
-        to: { name: "products-change-sku-id" },
+        to: { name: "product-change-sku-id" },
       },
     ],
   },

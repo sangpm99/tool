@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import Papa from "papaparse";
-import emptyData from "@/assets/images/empty-data.jpg";
+import emptyData from "@/assets/images/empty-data.png";
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const csvData = ref<any[]>([]);
+const isSnackbarVisible = ref<boolean>(false);
+const message = ref<string>("");
 
 const triggerFileInput = () => {
   fileInput.value?.click();
@@ -42,8 +44,11 @@ const onChangeSkuId = () => {
         csvData.value[i]["Parent"] = `id:${id}`;
       }
     }
+    message.value = "Change SKU / ID Successfully";
+    isSnackbarVisible.value = true;
   } catch (error) {
-    console.log(error);
+    message.value = JSON.stringify(error);
+    isSnackbarVisible.value = true;
   }
 };
 
@@ -114,10 +119,15 @@ const onDownload = () => {
         </VCard>
       </VCol>
 
-      <VCol cols="12" v-if="!csvData.length">
+      <VCol cols="12">
         <VCard>
           <VCardText>
-            <VEmptyState :image="emptyData" size="200" text-width="250">
+            <VEmptyState
+              v-if="!csvData.length"
+              :image="emptyData"
+              size="200"
+              text-width="250"
+            >
               <template v-slot:media>
                 <v-img class="mb-8"></v-img>
               </template>
@@ -126,6 +136,26 @@ const onDownload = () => {
                 <div class="text-h6 text-high-emphasis">No result Found</div>
               </template>
             </VEmptyState>
+
+            <VTable v-else>
+              <thead>
+                <tr>
+                  <td>Name</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr v-for="data in csvData">
+                  <td
+                    v-if="
+                      data['Type'] === 'simple' || data['Type'] === 'variable'
+                    "
+                  >
+                    {{ data["Name"] }}
+                  </td>
+                </tr>
+              </tbody>
+            </VTable>
           </VCardText>
         </VCard>
       </VCol>

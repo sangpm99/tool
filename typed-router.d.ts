@@ -21,8 +21,8 @@ declare module 'vue-router/auto-routes' {
     'root': RouteRecordInfo<'root', '/', Record<never, never>, Record<never, never>>,
     '$error': RouteRecordInfo<'$error', '/:error(.*)', { error: ParamValue<true> }, { error: ParamValue<false> }>,
     'login': RouteRecordInfo<'login', '/login', Record<never, never>, Record<never, never>>,
-    'products': RouteRecordInfo<'products', '/products', Record<never, never>, Record<never, never>>,
-    'products-change-sku-id': RouteRecordInfo<'products-change-sku-id', '/products/change-sku-id', Record<never, never>, Record<never, never>>,
-    'products-create': RouteRecordInfo<'products-create', '/products/create', Record<never, never>, Record<never, never>>,
+    'product': RouteRecordInfo<'product', '/product', Record<never, never>, Record<never, never>>,
+    'product-change-sku-id': RouteRecordInfo<'product-change-sku-id', '/product/change-sku-id', Record<never, never>, Record<never, never>>,
+    'product-create': RouteRecordInfo<'product-create', '/product/create', Record<never, never>, Record<never, never>>,
   }
 }
