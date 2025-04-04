@@ -101,7 +101,7 @@ const onDownload = () => {
                   </template>
                 </VTooltip>
 
-                <VTooltip text="Change & Download">
+                <VTooltip text="Download">
                   <template #activator="{ props }">
                     <VBtn
                       :disabled="!csvData.length"
